@@ -91,7 +91,28 @@ class BinaryTree {
    * which is larger than lowerBound. Return null if no such value exists. */
 
   nextLarger(lowerBound) {
+    // for an empty tree, return null
+    if (!this.root) return null;
 
+    // let's do BFS
+    let result = null;
+    
+    let queue = [this.root];
+
+    while (queue.length > 0) {
+      let node = queue.shift();
+
+      if (node.val > lowerBound) {
+        if (!result || node.val < result) {
+          result = node.val;
+        }
+      }
+
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+    }
+
+    return result;
   }
 
   /** Further study!
