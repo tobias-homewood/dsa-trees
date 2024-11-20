@@ -46,8 +46,16 @@ class BinaryTree {
   /** maxDepth(): return the maximum depth of the tree -- that is,
    * the length of the longest path from the root to a leaf. */
 
-  maxDepth() {
+  maxDepth(root = this.root, depth = 1) {
+    // let's do DFS
+    if (!root) return 0;
 
+    if (!root.left && !root.right) return depth;
+
+    let leftDepth = this.maxDepth(root.left, depth + 1);
+    let rightDepth = this.maxDepth(root.right, depth + 1);
+
+    return Math.max(depth, leftDepth, rightDepth);
   }
 
   /** maxSum(): return the maximum sum you can obtain by traveling along a path in the tree.
