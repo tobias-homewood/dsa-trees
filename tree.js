@@ -45,8 +45,17 @@ class Tree {
   /** numGreater(lowerBound): return a count of the number of nodes
    * whose value is greater than lowerBound. */
 
-  numGreater(lowerBound) {
+  numGreater(lowerBound, root = this.root) {
+    // let's do DFS
+    if (!root) return 0;
 
+    let count = root.val > lowerBound ? 1 : 0;
+
+    for (let child of root.children) {
+      count += this.numGreater(lowerBound, child);
+    }
+
+    return count;
   }
 }
 
