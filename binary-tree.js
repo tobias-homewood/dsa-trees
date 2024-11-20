@@ -62,7 +62,29 @@ class BinaryTree {
    * The path doesn't need to start at the root, but you can't visit a node more than once. */
 
   maxSum() {
+    // let's keep track of the max sum found so far
+    let maxSum = 0;
 
+    function maxPath(node) {
+      // let's do DFS
+      if (!node) return 0;
+  
+      // if it's a leaf, the sum is just its value
+      if (!node.left && !node.right) return node.val;
+  
+      // if it's not a leaf, we need to check the sum of the left and right paths
+      let leftPath = maxPath(node.left);
+      let rightPath = maxPath(node.right);
+
+      // update maxSum if we find a new maximum by taking this path
+      maxSum = Math.max(maxSum, leftPath + node.val + rightPath);
+  
+      return Math.max(leftPath, rightPath) + node.val;
+    }
+
+    maxPath(this.root);
+
+    return maxSum;
   }
 
   /** nextLarger(lowerBound): return the smallest value in the tree
